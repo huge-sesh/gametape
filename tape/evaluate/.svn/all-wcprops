@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/8/trunk/tape/evaluate
+END
+Evaluable.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/5/trunk/tape/evaluate/Evaluable.java
+END
+Not.java
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/5/trunk/tape/evaluate/Not.java
+END
+Evaluator.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/5/trunk/tape/evaluate/Evaluator.java
+END
+And.java
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/5/trunk/tape/evaluate/And.java
+END
+Track.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/6/trunk/tape/evaluate/Track.java
+END
+GameOver.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/5/trunk/tape/evaluate/GameOver.java
+END
+Exit.java
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/5/trunk/tape/evaluate/Exit.java
+END
+TapeReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/5/trunk/tape/evaluate/TapeReader.java
+END
+Get.java
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/5/trunk/tape/evaluate/Get.java
+END
+Timer.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/8/trunk/tape/evaluate/Timer.java
+END
+Or.java
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/5/trunk/tape/evaluate/Or.java
+END
+Gametape.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/8/trunk/tape/evaluate/Gametape.java
+END
+Variable.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/5/trunk/tape/evaluate/Variable.java
+END
+Condition.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/5/trunk/tape/evaluate/Condition.java
+END
+Parent.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/5/trunk/tape/evaluate/Parent.java
+END
