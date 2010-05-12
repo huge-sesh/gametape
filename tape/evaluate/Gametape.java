@@ -5,9 +5,6 @@
 package tape.evaluate;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -32,24 +29,12 @@ public class Gametape {
   public static Evaluator evaluator;
 
   public static void load(String filename) throws Exception {
-    evaluator = new Evaluator();
+    if (evaluator == null) evaluator = new Evaluator();
     evaluator.start();
+    trackMap.clear();
     trackMap.put("@gameover", new GameOver());
     BufferedInputStream tape = FileLoader.getStream(Globals.TAPE_PREFIX, filename);
-    //tape.mark(Globals.STATE_SIZE_LIMIT);
     new TapeReader(tape);
-    /*tape.reset();
-    byte[] buffer = new byte[512];
-    BufferedOutputStream out = new BufferedOutputStream (
-            new FileOutputStream(
-            Globals.gametapeDirectory + File.separator + tape));
-    int read = -1;
-    while ((read = tape.read(buffer)) != -1)
-    {
-      out.write(buffer, 0, read);
-    }
-    out.close();
-    */
   }
 
   public static void loadTrack(String nextTrack) {

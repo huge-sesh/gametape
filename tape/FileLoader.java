@@ -21,39 +21,19 @@ public class FileLoader {
         return;
       }
       Globals.resources.put(filename, null);
-      threadPool.execute(new Runnable() {
-
-        public void run() {
-          String type = (filename.substring(filename.indexOf('.')));
-          //if (type.equals("nes")) {
-            //getShorts(host, filename);
-          //} else {
-            getBytes(host, filename);
-         // }
-        }
-      });
     }
+    threadPool.execute(new Runnable() {
+      public void run() { getBytes(host, filename); }
+    });
   }
 
   public static BufferedInputStream getStream(String host, String filename) {
     System.out.println("getting "+host+" : "+filename);
     try {
       BufferedInputStream in;
-      /*
-      File local = new File(Globals.gametapeDirectory + File.separator + filename);
-      if (local.exists()) {
-        in = new BufferedInputStream(new FileInputStream(local), 4096);
-      } else {
-        if (Globals.LOCAL)
-        {
-          in = new BufferedInputStream(new FileInputStream(filename), 4096);
-        } else {
-       */
-          String remote = new String(host + filename).replace(" ", "%20");
-          System.out.println(remote);
-          in = new BufferedInputStream(new URL(remote).openStream(), 4096);
-        /*}
-      }*/
+      String remote = new String(host + filename).replace(" ", "%20");
+      System.out.println(remote);
+      in = new BufferedInputStream(new URL(remote).openStream(), 4096);
       return in;
     } catch (FileNotFoundException fnfe) {
       fnfe.printStackTrace();
@@ -69,12 +49,9 @@ public class FileLoader {
 
   public static void getBytes(String host, String filename) {
     try {
-      //File local = new File(Globals.gametapeDirectory + File.separator + filename);
       BufferedInputStream in = getStream(host, filename);
       ByteArrayOutputStream out = new ByteArrayOutputStream();
       byte[] buffer = new byte[512];
-
-
       while (true) {
         int read = in.read(buffer);
         if (read == -1) {
@@ -82,13 +59,6 @@ public class FileLoader {
         }
         out.write(buffer, 0, read);
       }
-      /*
-      if (!local.exists()) {
-        BufferedOutputStream localHandle = new BufferedOutputStream(new FileOutputStream(local));
-        localHandle.write(out.toByteArray());
-        localHandle.close();
-      }
-      */
       byte[] data = out.toByteArray();
 
       if (filename.endsWith(".nes"))
@@ -116,6 +86,7 @@ public class FileLoader {
     }
   }
 
+  /*
   public static Object getShorts(String romDirectory, String fileName) {
     try {
       File file = new File(romDirectory + File.separator + fileName);
@@ -136,4 +107,6 @@ public class FileLoader {
     }
     return null;
   }
+
+  */
 }

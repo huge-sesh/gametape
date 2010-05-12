@@ -2,16 +2,8 @@ package vNES;
 
 import java.applet.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import tape.evaluate.Gametape;
 
 public class vNES extends Applet implements Runnable {
@@ -27,7 +19,6 @@ public class vNES extends Applet implements Runnable {
   int samplerate;
   int romSize;
   int progress;
-  //JButton romdirButton;
   AppletUI gui;
   NES nes;
   public String gametape;
@@ -50,35 +41,7 @@ public class vNES extends Applet implements Runnable {
 
     Globals.appletMode = true;
     Globals.memoryFlushValue = 0x00; // make SMB1 hacked version work.
-    /*
-    if (!Globals.gametapeDirectory.exists()) {
-      Globals.gametapeDirectory.mkdir();
-      if (System.getProperty("os.name").substring(0, 7).equals("Windows")) {
-        try {
-          Runtime.getRuntime().exec("attrib +H " + Globals.gametapeDirectory.getAbsoluteFile());
-        } catch (IOException e) {
-          System.err.println("couldn't set hidden attribute");
-          e.printStackTrace();
-        }
-      }
-    }
-    */
     try {
-      // make SMB1 hacked version work.
-      /*
-      if (!Globals.gametapeDirectory.exists()) {
-      Globals.gametapeDirectory.mkdir();
-      if (System.getProperty("os.name").substring(0, 7).equals("Windows")) {
-      try {
-      Runtime.getRuntime().exec("attrib +H " + Globals.gametapeDirectory.getAbsoluteFile());
-      } catch (IOException e) {
-      System.err.println("couldn't set hidden attribute");
-      e.printStackTrace();
-      }
-      }
-      }
-       */
-      //gotResources = getResources(true);
       Gametape.load(gametape);
       gotResources = true;
     } catch (Exception ex) {
@@ -137,6 +100,7 @@ public class vNES extends Applet implements Runnable {
     t.start();
 
   }
+  /*
   public void getSettings()
   {
     Globals.settings = new HashMap<String, String>();
@@ -146,7 +110,6 @@ public class vNES extends Applet implements Runnable {
     Globals.settings.put("romdir", fc.getSelectedFile().getAbsolutePath());
   }
 
-  /*
   public boolean getResources(boolean init)
   {
     try {
@@ -181,6 +144,7 @@ public class vNES extends Applet implements Runnable {
     // Load ROM file:
     System.out.println("vNES 2.10 \u00A9 2006-2009 Jamie Sanders");
     System.out.println("For games and updates, see www.virtualnes.com");
+    System.out.println("Gametape beta 1 2010 huge sesh");
     System.out.println("Use of this program subject to GNU GPL, Version 3.");
 
     addScreenView();
@@ -332,15 +296,6 @@ public class vNES extends Applet implements Runnable {
     } else {
       gametape = tmp;
     }
-
-    /*
-    tmp = getParameter("rom");
-    if(tmp==null || tmp.equals("")){
-    rom = "vnes.nes";
-    }else{
-    rom = tmp;
-    }
-     */
 
     tmp = getParameter("scale");
     if (tmp == null || tmp.equals("")) {
