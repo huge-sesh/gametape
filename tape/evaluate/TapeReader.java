@@ -66,12 +66,14 @@ public class TapeReader extends DefaultHandler {
   {
     System.out.println("done parsing xml:");
     Gametape.print(0);
+    /*
     try{
-      FileLoader.threadPool.shutdown();
-      FileLoader.threadPool.awaitTermination(60, TimeUnit.SECONDS);
+      FileLoader.threadPool.awaitTermination(10000, TimeUnit.SECONDS);
     } catch (InterruptedException ie) {
       System.err.println("interruptedexception while waiting for fileloader");
     }
+   */
+    System.out.println("finished loading gametape");
   }
   @Override
   public void startElement(String uri, String name, String qName, Attributes atts)

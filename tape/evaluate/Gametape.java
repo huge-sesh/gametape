@@ -29,8 +29,10 @@ public class Gametape {
   public static Evaluator evaluator;
 
   public static void load(String filename) throws Exception {
-    if (evaluator == null) evaluator = new Evaluator();
-    evaluator.start();
+    if (evaluator == null) {
+      evaluator = new Evaluator();
+      evaluator.start();
+    }
     trackMap.clear();
     trackMap.put("@gameover", new GameOver());
     BufferedInputStream tape = FileLoader.getStream(Globals.TAPE_PREFIX, filename);

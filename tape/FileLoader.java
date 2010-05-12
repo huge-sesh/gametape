@@ -22,9 +22,12 @@ public class FileLoader {
       }
       Globals.resources.put(filename, null);
     }
+    /*
     threadPool.execute(new Runnable() {
       public void run() { getBytes(host, filename); }
     });
+    */
+    getBytes(host, filename);
   }
 
   public static BufferedInputStream getStream(String host, String filename) {
@@ -63,20 +66,14 @@ public class FileLoader {
 
       if (filename.endsWith(".nes"))
       {
-        System.out.println(filename +"matches .nes");
         short[] shorts = new short[data.length];
-        System.out.println("opening rom "+filename);
         for (int n = 0; n < data.length; n++) {
           shorts[n] = (short) (data[n] & 255);
         }
-        System.out.println("done loading "+filename);
         ROM rom = new ROM(Globals.nes);
-        System.out.println("created rom");
         rom.load(filename, shorts);
-        System.out.println("loaded rom");
         Globals.resources.put(filename, rom);
       } else {
-        System.out.println(filename+ " is not a rom");
         Globals.resources.put(filename, (Object) data);
       }
     } catch (FileNotFoundException fnfe) {
@@ -84,6 +81,7 @@ public class FileLoader {
     } catch (IOException ioe) {
       ioe.printStackTrace();
     }
+    System.out.println("finished loading "+filename);
   }
 
   /*
