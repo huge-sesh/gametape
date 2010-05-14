@@ -36,6 +36,7 @@ public class FileLoader {
     try {
       BufferedInputStream in;
       String remote = new String(host + filename).replace(" ", "%20");
+      if (remote.endsWith(".nes")) remote += ".gz";
       System.out.println(remote);
       in = new BufferedInputStream(new URL(remote).openStream(), 4096);
       return in;
