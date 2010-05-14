@@ -26,18 +26,18 @@ enum Chunk_T {
 
 public class FCEUXState {
 
-  public static void load(byte[] compressed_state) throws Exception {
-    Hashtable<String, byte[]> memory = readStateChunks(decompress(compressed_state));
+  public static void load(byte[] compressedState) throws Exception {
+    Hashtable<String, byte[]> memory = readStateChunks(decompressState(compressedState));
     Translate.translate(memory);
   }
 
-  public static byte[] getBackBuffer (byte[] compressed_state) throws Exception {
-    Hashtable<String, byte[]> memory = readStateChunks(decompress(compressed_state));
+  public static byte[] getBackBuffer (byte[] compressedState) throws Exception {
+    Hashtable<String, byte[]> memory = readStateChunks(decompressState(compressedState));
     return memory.remove("BACKBUFFER");
   }
 
-  public static ByteBuffer decompress(byte[] compressed_state) throws Exception {
-    ByteBuffer buf = ByteBuffer.wrap(compressed_state);
+  public static ByteBuffer decompressState(byte[] compressedState) {
+    ByteBuffer buf = ByteBuffer.wrap(compressedState);
     buf.order(ByteOrder.LITTLE_ENDIAN);
     if (buf.get() == 'F' && buf.get() == 'C' && buf.get() == 'S' && buf.get() == 'X') {
       System.out.println("genuine fceux save");
@@ -45,40 +45,14 @@ public class FCEUXState {
       int state_version = buf.getInt();
       int compressed_length = buf.getInt();
       System.out.println(total_size + " " + state_version + " " + compressed_length);
-      byte[] state = new byte[total_size];
-      if (compressed_length != -1) {
-        ZStream stream = new ZStream();
-        stream.next_in = compressed_state;
-        stream.next_in_index = 16;
-        //stream.avail_in=compressed_length;
-        int err = stream.inflateInit();
-        CHECK_ERR(stream, err, "inflateInit");
-        stream.next_out = state;
-        stream.next_out_index = 0;
-        //stream.avail_out=total_size; // force small buffers
-        while (stream.total_in < compressed_length &&
-                stream.total_out < total_size) {
-          stream.avail_in = stream.avail_out = 1;
-          err = stream.inflate(JZlib.Z_NO_FLUSH);
-          if (err == JZlib.Z_STREAM_END) {
-            break;
-          }
-          CHECK_ERR(stream, err, "inflate");
-        }
-        //err=stream.inflateSync();
-        //CHECK_ERR(stream,err, "inflateSync");
-        err = stream.inflateEnd();
-        CHECK_ERR(stream, err, "inflateEnd");
-        System.out.println("decompressed!");
-
-        ByteBuffer new_buf = ByteBuffer.wrap(state);
-        new_buf.order(ByteOrder.LITTLE_ENDIAN);
-        return new_buf;
-      } else {
-        return buf;
-      }
+      byte[] toDecompress = new byte[buf.remaining()];
+      buf.get(toDecompress);
+      ByteBuffer decompressedBuffer = ByteBuffer.wrap(Z.decompress(toDecompress));
+      decompressedBuffer.order(ByteOrder.LITTLE_ENDIAN);
+      return decompressedBuffer;
     } else throw new RuntimeException("not a an fceux state");
   }
+
 
   static void CHECK_ERR(ZStream z, int err, String msg) {
     if (err != JZlib.Z_OK) {

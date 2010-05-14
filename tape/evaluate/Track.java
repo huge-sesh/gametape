@@ -5,12 +5,10 @@
 
 package tape.evaluate;
 
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import tape.FileLoader;
 import vNES.Globals;
-import vNES.ROM;
 
 /**
  *

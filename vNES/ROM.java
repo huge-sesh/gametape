@@ -1,6 +1,5 @@
 package vNES;
 
-import tape.FileLoader;
 import java.io.*;
 import javax.swing.JOptionPane;
 

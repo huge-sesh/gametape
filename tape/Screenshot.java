@@ -8,10 +8,8 @@ package tape;
 import ar.com.hjg.pngj.ImageInfo;
 import ar.com.hjg.pngj.ImageLine;
 import ar.com.hjg.pngj.PngWriter;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import vNES.Globals;
 import vNES.NES;
@@ -40,7 +38,7 @@ public class Screenshot {
       if (bytesRead < 1) break;
       ostream.write(buffer, 0, bytesRead);
     }
-    buffer = ostream.toByteArray();
+    buffer = Z.decompress(ostream.toByteArray());
     istream.close();
     short[] romShorts = new short[buffer.length];
     for (int n = 0; n < buffer.length; n++) {

@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import vNES.Globals;
@@ -66,6 +67,8 @@ public class FileLoader {
 
       if (filename.endsWith(".nes"))
       {
+        data = Z.decompress(data);
+
         short[] shorts = new short[data.length];
         for (int n = 0; n < data.length; n++) {
           shorts[n] = (short) (data[n] & 255);
